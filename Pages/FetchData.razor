@@ -24,8 +24,6 @@ else
         <tbody>
             @foreach (Food food in foodList)
             {
-                totalPrice += food.Price * food.Amount;
-                totalAmount += food.Amount;
                 <tr>
                     <td>@food.Id</td>
                     <td>@food.Item</td>
@@ -51,33 +49,25 @@ else
 
 @code {
     Food food = new();
-    static List<Food> foodList = new SQL().ReadFood();
-    static double totalPrice = 0;
-    static double totalAmount = 0;
-    //static double getTotalPrice()
-    //{
-    //    double price = 0;
-    //    foreach (Food food in foodList)
-    //    {
-    //        totalPrice += food.Price * food.Amount;
-    //    }
-    //    return price;
-    //}
-    //static int getTotalAmount()
-    //{
-    //    int amount = 0;
-    //    foreach (var food in foodList)
-    //    {
-    //        totalAmount += food.Amount;
-    //    }
-    //    return amount;
-    //}
+    List<Food> foodList = new SQL().ReadFood();
+    double totalPrice = 0;
+    double totalAmount = 0;
+    protected override async Task OnInitializedAsync()
+    {
+        Count();
+    }
+    void Count()
+    {
+        foreach (var food in foodList)
+        {
+            totalPrice += food.Price * food.Amount;
+            totalAmount += food.Amount;
+        }
+    }
     void AddItem()
     {
         new SQL().CreateFood(food);
+        food = new();
         foodList = new SQL().ReadFood();
     }
-
-
-
 }

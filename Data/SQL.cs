@@ -1,4 +1,5 @@
-﻿using System.Data.SqlClient;
+﻿using System.Data;
+using System.Data.SqlClient;
 
 namespace H1AfsluttendeOpgaveSuperVigtig.Data
 {
@@ -13,14 +14,13 @@ namespace H1AfsluttendeOpgaveSuperVigtig.Data
             "ApplicationIntent=ReadWrite;" +
             "MultiSubnetFailover=False");
         public List<Food> ReadFood()
-        {
-            conn.Open();
+        {          
             List<Food> foodList = new List<Food>();
             SqlCommand command = new SqlCommand("Select * from [Food]", conn);
-            //command.Parameters.AddWithValue("@zip", "india");
-            // int result = command.ExecuteNonQuery();
+            conn.Open();
             using (SqlDataReader reader = command.ExecuteReader())
             {
+
                 while (reader.Read())
                 {
                     Food f = new()
@@ -31,12 +31,25 @@ namespace H1AfsluttendeOpgaveSuperVigtig.Data
                         Amount = int.Parse(reader["amount"].ToString())
                     };
                     foodList.Add(f);
-
-                    Console.WriteLine(String.Format("{0}", reader["id"]));
                 }
             }
             conn.Close();
             return foodList;
+        }
+
+        public bool CreateFood(Food f)
+        {
+            using (conn)
+            {
+                var cmd = new SqlCommand(
+                    "INSERT INTO [Food] " +
+                    "VALUES (@item, @amount, @price)", conn);
+                cmd.Parameters.Add("@item", SqlDbType.NVarChar).Value = f.Item;
+                cmd.Parameters.Add("@amount", SqlDbType.Int).Value = f.Amount;
+                cmd.Parameters.Add("@price", SqlDbType.Decimal).Value = f.Price;
+                conn.Open();
+                if (cmd.ExecuteNonQuery() == 1) return true; else return false;
+            }
         }
 
     }

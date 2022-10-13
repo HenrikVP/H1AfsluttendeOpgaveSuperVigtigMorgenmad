@@ -24,3 +24,6 @@ Insert Into Food (Item, Price, Amount) VALUES('Boller', 8, 20)
 
 
 SELECT * FROM Food
+
+
+DELETE FROM Food WHERE ID > 6

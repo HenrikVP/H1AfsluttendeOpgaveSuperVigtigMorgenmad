@@ -24,6 +24,8 @@ else
         <tbody>
             @foreach (Food food in foodList)
             {
+                totalPrice += food.Price * food.Amount;
+                totalAmount += food.Amount;
                 <tr>
                     <td>@food.Id</td>
                     <td>@food.Item</td>
@@ -31,10 +33,51 @@ else
                     <td>@food.Amount</td>
                 </tr>
             }
+            <tr>
+                <td><button @onclick="AddItem">+</button></td>
+                <td><input @bind="food.Item" /></td>
+                <td><input @bind="food.Amount" /></td>
+                <td><input @bind="food.Price" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Ialt</td>
+                <td>@totalPrice</td>
+                <td>@totalAmount</td>
+            </tr>
         </tbody>
     </table>
 }
 
 @code {
-    List<Food> foodList = new SQL().ReadFood();
+    Food food = new();
+    static List<Food> foodList = new SQL().ReadFood();
+    static double totalPrice = 0;
+    static double totalAmount = 0;
+    //static double getTotalPrice()
+    //{
+    //    double price = 0;
+    //    foreach (Food food in foodList)
+    //    {
+    //        totalPrice += food.Price * food.Amount;
+    //    }
+    //    return price;
+    //}
+    //static int getTotalAmount()
+    //{
+    //    int amount = 0;
+    //    foreach (var food in foodList)
+    //    {
+    //        totalAmount += food.Amount;
+    //    }
+    //    return amount;
+    //}
+    void AddItem()
+    {
+        new SQL().CreateFood(food);
+        foodList = new SQL().ReadFood();
+    }
+
+
+
 }

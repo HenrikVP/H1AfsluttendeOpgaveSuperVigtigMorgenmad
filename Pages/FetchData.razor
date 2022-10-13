@@ -1,0 +1,40 @@
+﻿@page "/fetchdata"
+
+<PageTitle>Morgenmad</PageTitle>
+@using H1AfsluttendeOpgaveSuperVigtig.Data
+
+<h1>Morgenmad</h1>
+<p>Hvad skal vi have til morgenmad</p>
+
+@if (foodList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Food food in foodList)
+            {
+                <tr>
+                    <td>@food.Id</td>
+                    <td>@food.Item</td>
+                    <td>@food.Price</td>
+                    <td>@food.Amount</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    List<Food> foodList = new SQL().ReadFood();
+}

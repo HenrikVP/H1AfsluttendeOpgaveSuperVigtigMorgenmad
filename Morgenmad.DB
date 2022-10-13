@@ -1,0 +1,26 @@
+﻿USE MASTER
+GO
+CREATE DATABASE BreakfastDb
+GO
+USE BreakfastDb
+GO
+
+CREATE TABLE Food (
+Id INT Identity(1,1),
+Item NVARCHAR(255),
+Price DECIMAL(10,2),
+Amount INT
+)
+GO
+
+Insert Into Food (Item, Price, Amount) VALUES('Kakaomælk', 12, 3)
+Insert Into Food (Item, Price, Amount) VALUES('Smør', 20, 2)
+Insert Into Food (Item, Price, Amount) VALUES('Syltetøj', 25, 1)
+Insert Into Food (Item, Price, Amount) VALUES('Te', 25, 1)
+Insert Into Food (Item, Price, Amount) VALUES('Nescafe', 55, 1)
+Insert Into Food (Item, Price, Amount) VALUES('Croissant', 5, 20)
+Insert Into Food (Item, Price, Amount) VALUES('Boller', 8, 20)
+
+
+
+SELECT * FROM Food

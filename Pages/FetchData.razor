@@ -25,7 +25,7 @@ else
             @foreach (Food food in foodList)
             {
                 <tr>
-                    <td>@food.Id</td>
+                    <td>@food.Id <button @onclick="() => DeleteItem(food.Id)">Delete</button></td>
                     <td>@food.Item</td>
                     <td>@food.Price</td>
                     <td>@food.Amount</td>
@@ -69,5 +69,10 @@ else
         new SQL().CreateFood(food);
         food = new();
         foodList = new SQL().ReadFood();
+    }
+
+    void DeleteItem(int id)
+    {
+        Console.Write("Deleting food item with ID: " + id);
     }
 }

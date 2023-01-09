@@ -5,14 +5,7 @@ namespace H1AfsluttendeOpgaveSuperVigtig.Data
 {
     public class SQL
     {
-        private SqlConnection conn = new SqlConnection("" +
-            "Data Source=192.168.2.2;" +
-            "Initial Catalog=BreakfastDb;" +
-            "User ID=sa;Password=Passw0rd;" +
-            "Connect Timeout=30;Encrypt=False;" +
-            "TrustServerCertificate=False;" +
-            "ApplicationIntent=ReadWrite;" +
-            "MultiSubnetFailover=False");
+        private SqlConnection conn = new SqlConnection("Data Source=.;Initial Catalog=BreakfastDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         public List<Food> ReadFood()
         {          
             List<Food> foodList = new List<Food>();
